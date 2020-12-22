@@ -1,0 +1,5 @@
+h1{
+    border: solid 2px black;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, rgb(69, 185, 231) 0, rgb(15, 114, 160));
+}

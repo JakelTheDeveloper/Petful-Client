@@ -1,0 +1,70 @@
+import React, { Component } from 'react'
+import Person from '../People/Person'
+import Pet from '../Pets/Pet'
+import {Link} from 'react-router-dom'
+import './Adoption.css'
+
+class AdoptionPage extends Component {
+
+    state = {
+        pets: [],
+        people: [],
+        person: '',
+        error: null
+    }
+
+    constructor(props) {
+        super(props)
+        this.handleChange = this.handleChange.bind(this)
+    }
+
+    handleChange(event) {
+        const value = event.target.value
+        this.setState({ ...this.state, [event.target.name]: value })
+    }
+
+    handleSubmit = ev => {
+        ev.preventDefault()
+        let myPerson = {name:this.state.person}
+        this.props.addPerson(myPerson)
+    }
+
+    render() {
+        let pets = [this.props.pets]
+        let myPets = pets[0]
+        let people = [this.props.people]
+        let myPeople = people[0]
+        return (
+            <div>
+                <h2>People In Line</h2>
+                <div className="people">
+
+                    {myPeople.map((person, index) =>
+                        <Person key={index} id={index} name={person.name}
+                        />)}
+                </div>
+                <br />
+                <form className="name_entry" onSubmit={this.handleSubmit}>
+                    <label htmlFor="person" className="name" >Name:</label>
+                    <input type="text" id="person" name="person" onChange={this.handleChange} />
+                    <br />
+                    <button type="submit">Get In Line</button>
+                </form>
+                {(this.props.ready)?<div><Link to="/adopt"><button>Start Adoption</button></Link></div>:<div></div>}
+
+                <h2>Available Pets</h2>
+                <div className="container">
+                    <div className="pets">
+                        {myPets.map((pet, index) =>
+                            <Pet key={index} id={index} name={pet.name} gender={pet.gender} age={pet.age} breed={pet.breed}
+                                story={pet.story} description={pet.description} image={pet.imageURL}
+                            />)}
+                    </div>
+                </div>
+            </div>
+        )
+
+    }
+}
+
+export default AdoptionPage

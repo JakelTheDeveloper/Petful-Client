@@ -1,0 +1,21 @@
+.pets_container{
+    border: solid 2px black;
+    border-radius: 5px;
+    background: linear-gradient(to bottom, rgb(69, 185, 231) 0, rgb(15, 114, 160));
+}
+
+img{
+    border-radius: 8px;
+    margin-top: 10px;
+    border:solid 2px black;
+}
+
+.ul {
+    padding: 0;
+   }
+.li{
+     margin-top: 5px;
+     list-style-type: none;
+    text-align: center;
+    font-weight: 800;
+ }

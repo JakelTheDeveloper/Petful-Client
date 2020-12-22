@@ -1,0 +1,45 @@
+html{
+    width: 100%;
+}
+.people{
+    display: inline-block;
+    flex-direction: row;
+}
+label{
+    width: 240px;
+    margin-left: -230px;
+    display: inline-block;
+}
+.name{
+    text-align: right;
+    color: black;
+    font-weight: 600;
+    font-size: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 10px;
+}
+input{
+    margin-top: 10px;
+    align-items: center;
+}
+.container{
+    column-count: 1;
+}
+.pets{
+    display: flex;
+    flex-direction: column;
+    
+}
+h2{
+border: solid 2px black;
+border-radius: 5px;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+background: linear-gradient(to bottom, rgb(69, 185, 231) 0, rgb(15, 114, 160));
+}
+
+@media only screen and (min-width: 56.25em) {
+    .container{
+        column-count: 2;
+    }
+}
+
