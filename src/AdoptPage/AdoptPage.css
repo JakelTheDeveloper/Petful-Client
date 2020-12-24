@@ -1,0 +1,13 @@
+.form-popup {
+    position: relative;
+    bottom: 0;
+    display: inline-flex;
+    justify-content: center;
+    margin: auto;
+    z-index: 9;
+}
+
+.form-container {
+    max-width: 300px;
+    padding: 10px;
+}

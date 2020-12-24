@@ -5,9 +5,13 @@ import {Link} from 'react-router-dom'
 import './Adoption.css'
 
 class AdoptionPage extends Component {
+    static defaultProps = {
+        match: {
+            params: {}
+        }
+    }
 
     state = {
-        pets: [],
         people: [],
         person: '',
         error: null
@@ -27,19 +31,19 @@ class AdoptionPage extends Component {
         ev.preventDefault()
         let myPerson = {name:this.state.person}
         this.props.addPerson(myPerson)
+        this.props.history.push('/adopt')
     }
 
     render() {
-        let pets = [this.props.pets]
-        let myPets = pets[0]
-        let people = [this.props.people]
-        let myPeople = people[0]
+        let cats = [this.props.cats]
+        let dogs = [this.props.dogs]
+        let people = this.props.people
         return (
             <div>
                 <h2>People In Line</h2>
                 <div className="people">
 
-                    {myPeople.map((person, index) =>
+                    {people.map((person, index) =>
                         <Person key={index} id={index} name={person.name}
                         />)}
                 </div>
@@ -55,7 +59,11 @@ class AdoptionPage extends Component {
                 <h2>Available Pets</h2>
                 <div className="container">
                     <div className="pets">
-                        {myPets.map((pet, index) =>
+                        {dogs.map((pet, index) =>
+                            <Pet key={index} id={index} name={pet.name} gender={pet.gender} age={pet.age} breed={pet.breed}
+                                story={pet.story} description={pet.description} image={pet.imageURL}
+                            />)}
+                        {cats.map((pet, index) =>
                             <Pet key={index} id={index} name={pet.name} gender={pet.gender} age={pet.age} breed={pet.breed}
                                 story={pet.story} description={pet.description} image={pet.imageURL}
                             />)}

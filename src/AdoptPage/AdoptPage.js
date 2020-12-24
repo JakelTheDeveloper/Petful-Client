@@ -1,68 +1,127 @@
 import React, { Component } from 'react'
 import Pet from '../Pets/Pet'
 import Person from '../People/Person'
-import CatsPage from '../Pets/CatsPage'
+import './AdoptPage.css'
 
 class AdoptPage extends Component {
-
+    static defaultProps = {
+        match: {
+            params: {}
+        }
+    }
+    constructor(props) {
+        super(props);
+        this.handleDogAdoption = this.handleDogAdoption.bind(this);
+        this.handleCatAdoption = this.handleCatAdoption.bind(this);
+        this.continueProcess = this.continueProcess.bind(this);
+    }
     state = {
         data: [],
-        cats:this.props.cats,
-        count:0,
+        count: 0,
+        selection: false,
+        selected: false,
         error: null
     }
 
-//    componentDidMount(){
-//     this.intervalId = setInterval(() => {
-//         let currentCount = this.state.count + 1;
-//         this.setState({ count: currentCount });
-//         if(this.state.count === 5){
-//             let decision = Math.floor(Math.random() * Math.floor(2));
-//             let pet;
-//             if(decision === 0){
-//                 pet = this.props.cats
-//             }else{
-//                 if(decision === 1){
-//                     pet = this.props.dogs
-//                 }
-//             }
-//             let currentCount = 0;
-//             this.setState({ count: currentCount });
-//             this.props.removePerson(this.props.people[0],pet.name)
-//         }
-//     },1000)
-//    }
+    componentDidMount() {
+        this.intervalId = setInterval(() => {
+            let currentCount = this.state.count + 1
+            this.setState({ count: currentCount })
+            if (this.state.count === 1) {
+                if (this.props.people[0] !== this.props.user) {
+                    let decision = Math.floor(Math.random() * Math.floor(2))
+                    if (decision === 0) {
+                        currentCount = 0
+                        this.setState({ count: currentCount })
+                        this.props.removeCat()
+                    } else {
+                        if (decision === 1) {
+                            currentCount = 0
+                            this.setState({ count: currentCount })
+                            this.props.removeDog()
+                        }
+                    }
+                } else
+                    if (this.props.people[0] === this.props.user) {
+                        let { selection } = this.state
+                        clearInterval(this.intervalId)
+                        if (!selection) {
+                            this.setState({ selection: selection = true })
+                        }
+                    }
+            }
+        }, 5000)
+    }
 
-   componentWillUnmount(){
-    clearInterval(this.intervalId)
-   }
+    componentWillUnmount() {
+        clearInterval(this.intervalId)
+    }
+
+    handleUsage(params) {
+        return
+    }
+
+    handleCatAdoption = (ev) => {
+        ev.preventDefault();
+        let { selection, selected } = this.state
+        let newselected = true
+        let newselection = false
+        this.props.removeCat()
+        this.setState({ selection: selection = newselection, selected: selected = newselected })
+        this.handleUsage(selection, selected)
+    }
+
+    handleDogAdoption = (ev) => {
+        ev.preventDefault()
+        let { selection, selected } = this.state
+        let newselected = true
+        let newselection = false
+        this.props.removeDog()
+        this.setState({ selection: selection = newselection, selected: selected = newselected })
+        this.handleUsage(selection, selected)
+    }
+
+    continueProcess = (ev) => {
+        ev.preventDefault()
+        let { selected } = this.state
+        this.props.history.push('/adoption')
+        let newselected = false
+        this.setState({ selected: selected = newselected })
+        this.handleUsage(selected)
+    }
 
     render() {
-        let cats = [this.props.cats.value][0]
-        let dog = [this.props.dogs]
-        let cat = [this.props.cats]
-        let thisData = [this.props.people]
-        let data = thisData[0]
-       
+        let { selected, selection } = this.state
+        let dog = this.props.dogs
+        let cat = this.props.cats
+        let people = this.props.people
         return (
             <div>
-                {this.state.count}
-                {data.map((data, index) =>
-                    <Person key={index} id ={index} name={data.name}
+                {(selection) ? <div className="form-popup" id="myForm">
+                    <form className="form-container">
+                        <h1>Your Turn To Adopt Your New Animal!</h1>
+                        <button onClick={this.handleDogAdoption.bind(this)}>Adopt Dog</button>
+                        <button onClick={this.handleCatAdoption.bind(this)}>Adopt Cat</button>
+                    </form>
+                </div> : <div></div>}
+                {(selected) ? <div className="form-popup" id="myForm">
+                    <form className="form-container">
+                        <h1>Congratulations On Adopting Your New Pet!</h1>
+                        <button onClick={this.continueProcess.bind(this)}>Continue</button>
+                    </form>
+                </div> : <div></div>}
+                {people.map((data, index) =>
+                    <Person key={index} name={data.name}
                     />)}
                 <h2>Available Pets</h2>
                 <div className="container">
                     <div className="pets">
-                        {dog.map((pet, index) =>
-                            <Pet key={index} id ={index} name={pet.name} gender={pet.gender} age={pet.age} breed={pet.breed}
-                                story={pet.story} description={pet.description} image={pet.imageURL}
-                            />)}
-                            
-                        {cat.map((pet, index) =>
-                            <Pet key={index} id ={index} name={pet.name} gender={pet.gender} age={pet.age} breed={pet.breed}
-                                story={pet.story} description={pet.description} image={pet.imageURL}
-                            />
-                             )}
+                        <Pet name={dog.name} gender={dog.gender} age={dog.age} breed={dog.breed}
+                            story={dog.story} description={dog.description} image={dog.imageURL}
+                        />
+                        <Pet name={cat.name} gender={cat.gender} age={cat.age} breed={cat.breed}
+                            story={cat.story} description={cat.description} image={cat.imageURL}
+                        />
                     </div>
                 </div>
             </div>
