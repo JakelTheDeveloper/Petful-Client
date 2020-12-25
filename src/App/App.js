@@ -11,6 +11,7 @@ import './App.css'
 class App extends Component {
     state = {
         people: [],
+        line: [],
         user: [],
         pets: [],
         dogs: {},
@@ -54,11 +55,11 @@ class App extends Component {
                 .catch(error => this.setState({ error }))
         }
     }
-    handleUsage(params){
+    handleUsage(params) {
         return
     }
     handleAdd = (data) => {
-        let { ready,people } = this.state
+        let { ready, people } = this.state
         fetch(`${config.URL}/people`, {
             method: 'POST',
             headers: { 'content-type': 'application/json' },
@@ -70,22 +71,13 @@ class App extends Component {
 
     removePerson = () => {
         let { people } = this.state
-        let addedPerson = people[0]
-        this.setState({ people: [...people.slice(1), addedPerson] })
-        fetch(`${config.URL}/people/next`, {
-            method: 'DELETE',
-            headers: {
-                'content-type': 'application/json'
-            },
-        })
-            .then(res => {
-                if (!res.ok)
-                    return res.json()
-                        .then(e => Promise.reject(e))
-            })
-            .catch(error => {
-                this.setState({ error: error.message })
-            })
+        let newAdd = { name: people[0].name }
+        fetch(`${config.URL}/people`, {
+            method: 'POST',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify(newAdd),
+        });
+        this.setState({ people: [...people.slice(1), newAdd]})
     }
     removeTheCat() {
         fetch(`${config.URL}/pets/cats/next`, {
@@ -149,7 +141,7 @@ class App extends Component {
                 />
                 <Route exact path="/adoption" render={(props) => (
                     <AdoptionPage people={this.state.people} cats={this.state.cats} dogs={this.state.dogs}
-                     addPerson={this.handleAdd} ready={this.state.ready} {...props} />
+                        addPerson={this.handleAdd} ready={this.state.ready} {...props} />
                 )}
                 />
                 <Route exact path="/adopt" render={(props) => (

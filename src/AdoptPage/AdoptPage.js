@@ -34,13 +34,12 @@ class AdoptPage extends Component {
                         currentCount = 0
                         this.setState({ count: currentCount })
                         this.props.removeCat()
-                    } else {
+                    } else 
                         if (decision === 1) {
                             currentCount = 0
                             this.setState({ count: currentCount })
                             this.props.removeDog()
                         }
-                    }
                 } else
                     if (this.props.people[0] === this.props.user) {
                         let { selection } = this.state
@@ -52,6 +51,7 @@ class AdoptPage extends Component {
             }
         }, 5000)
     }
+  
 
     componentWillUnmount() {
         clearInterval(this.intervalId)
@@ -66,6 +66,8 @@ class AdoptPage extends Component {
         let { selection, selected } = this.state
         let newselected = true
         let newselection = false
+        let currentCount = 0
+        this.setState({ count: currentCount })
         this.props.removeCat()
         this.setState({ selection: selection = newselection, selected: selected = newselected })
         this.handleUsage(selection, selected)
@@ -76,6 +78,8 @@ class AdoptPage extends Component {
         let { selection, selected } = this.state
         let newselected = true
         let newselection = false
+        let currentCount = 0
+        this.setState({ count: currentCount })
         this.props.removeDog()
         this.setState({ selection: selection = newselection, selected: selected = newselected })
         this.handleUsage(selection, selected)
