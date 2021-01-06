@@ -33,12 +33,12 @@ class AdoptPage extends Component {
                     if (decision === 0) {
                         currentCount = 0
                         this.setState({ count: currentCount })
-                        this.props.removeCat()
+                        this.props.removeCat(this.props.user.name)
                     } else 
                         if (decision === 1) {
                             currentCount = 0
                             this.setState({ count: currentCount })
-                            this.props.removeDog()
+                            this.props.removeDog(this.props.user.name)
                         }
                 } else
                     if (this.props.people[0] === this.props.user) {
@@ -68,7 +68,7 @@ class AdoptPage extends Component {
         let newselection = false
         let currentCount = 0
         this.setState({ count: currentCount })
-        this.props.removeCat()
+        this.props.removeCat(this.props.user.name)
         this.setState({ selection: selection = newselection, selected: selected = newselected })
         this.handleUsage(selection, selected)
     }
@@ -80,7 +80,7 @@ class AdoptPage extends Component {
         let newselection = false
         let currentCount = 0
         this.setState({ count: currentCount })
-        this.props.removeDog()
+        this.props.removeDog(this.props.user.name)
         this.setState({ selection: selection = newselection, selected: selected = newselected })
         this.handleUsage(selection, selected)
     }

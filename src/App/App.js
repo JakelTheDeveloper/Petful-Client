@@ -69,15 +69,16 @@ class App extends Component {
         this.handleUsage(ready)
     }
 
-    removePerson = () => {
+    removePerson = (person) => {
         let { people } = this.state
-        let newAdd = { name: people[0].name }
-        fetch(`${config.URL}/people`, {
-            method: 'POST',
-            headers: { 'content-type': 'application/json' },
-            body: JSON.stringify(newAdd),
-        });
-        this.setState({ people: [...people.slice(1), newAdd]})
+        let newAdd = { name: "NewGuest" }
+            fetch(`${config.URL}/people/next`, {
+                method: 'DELETE',
+                headers: {
+                    'content-type': 'application/json'
+                },
+            })
+        this.setState({ people: [...people.slice(1),newAdd] })
     }
     removeTheCat() {
         fetch(`${config.URL}/pets/cats/next`, {
@@ -112,8 +113,8 @@ class App extends Component {
             })
     }
 
-    handleCatRemove = () => {
-        this.removePerson()
+    handleCatRemove = (person) => {
+        this.removePerson(person)
         this.removeTheCat()
         return fetch(`${config.URL}/pets/cats/next`).then((res) =>
             !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()
@@ -122,8 +123,8 @@ class App extends Component {
             .catch(error => this.setState({ error }))
     }
 
-    handleDogRemove = () => {
-        this.removePerson()
+    handleDogRemove = (person) => {
+        this.removePerson(person)
         this.removeTheDog()
         return fetch(`${config.URL}/pets/dogs/next`).then((res) =>
             !res.ok ? res.json().then((e) => Promise.reject(e)) : res.json()

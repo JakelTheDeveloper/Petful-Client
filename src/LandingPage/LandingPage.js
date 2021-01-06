@@ -15,7 +15,7 @@ class LandingPage extends Component{
             <div>
                 <section>
                     <article>
-                    Thank you for taking a chance at adopting a pet!<br/> You can choose to adopt a cat, dog, or both,<br/>
+                    Thank you for taking a chance at adopting a pet!<br/> You can choose to adopt a cat or dog,<br/>
                     but you have to adopt the pets in the order in which they came in.
                     </article>
                 </section>

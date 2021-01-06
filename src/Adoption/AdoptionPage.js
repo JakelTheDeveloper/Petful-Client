@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Person from '../People/Person'
 import Pet from '../Pets/Pet'
-import {Link} from 'react-router-dom'
 import './Adoption.css'
 
 class AdoptionPage extends Component {
@@ -54,7 +53,6 @@ class AdoptionPage extends Component {
                     <br />
                     <button type="submit">Get In Line</button>
                 </form>
-                {(this.props.ready)?<div><Link to="/adopt"><button>Start Adoption</button></Link></div>:<div></div>}
 
                 <h2>Available Pets</h2>
                 <div className="container">
